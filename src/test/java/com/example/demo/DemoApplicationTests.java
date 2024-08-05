@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -51,7 +52,7 @@ class DemoApplicationTests {
 		Assertions.assertEquals("John Doe", student.getName());
 
 		student.setName("John Doe Updated");
-		student.setCourses(new ArrayList<>(Arrays.asList(course1)));  // Set a new list
+		student.setCourses(new ArrayList<>(Arrays.asList(course1)));
 		student = studentRepository.save(student);
 
 		final var foundStudent = studentRepository.findById(student.getId()).orElse(null);
@@ -80,8 +81,8 @@ class DemoApplicationTests {
 		Assertions.assertEquals("Prof. Alan Turing", teacher.getName());
 
 		teacher.setName("Prof. Alan Turing Updated");
-		teacher.setCourses(new ArrayList<>(Arrays.asList(course1)));  // Set a new list
-		teacher.setGroups(new ArrayList<>(Arrays.asList(group1)));    // Set a new list
+		teacher.setCourses(new ArrayList<>(List.of(course1)));
+		teacher.setGroups(new ArrayList<>(List.of(group1)));
 		teacher = teacherRepository.save(teacher);
 
 		final var foundTeacher = teacherRepository.findById(teacher.getId()).orElse(null);

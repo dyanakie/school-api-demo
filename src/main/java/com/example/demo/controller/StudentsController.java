@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Student;
+import com.example.demo.model.StudentDto;
 import com.example.demo.service.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,17 +35,17 @@ public class StudentsController {
     }
 
     @GetMapping("/course")
-    public List<Student> getStudentsByCourse(@RequestParam Long courseId) {
+    public List<StudentDto> getStudentsByCourse(@RequestParam Long courseId) {
         return studentsService.getStudentsByCourse(courseId);
     }
 
     @GetMapping("/group")
-    public List<Student> getStudentsByGroup(@RequestParam Long groupId) {
+    public List<StudentDto> getStudentsByGroup(@RequestParam Long groupId) {
         return studentsService.getStudentsByGroup(groupId);
     }
 
     @GetMapping("/age")
-    public List<Student> getStudentsOlderThanByCourse(@RequestParam int age, @RequestParam Long courseId) {
+    public List<StudentDto> getStudentsOlderThanByCourse(@RequestParam int age, @RequestParam Long courseId) {
         return studentsService.getStudentsOlderThanByCourse(age, courseId);
     }
 }

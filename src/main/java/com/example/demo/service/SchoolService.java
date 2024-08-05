@@ -5,6 +5,8 @@ import com.example.demo.entity.StudentGroup;
 import com.example.demo.entity.Student;
 import com.example.demo.entity.Teacher;
 import com.example.demo.model.GroupDto;
+import com.example.demo.model.StudentDto;
+import com.example.demo.model.TeacherDto;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.repository.GroupRepository;
 import com.example.demo.repository.StudentRepository;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class SchoolService {
+    @Autowired
+    private UtilService utilService;
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
@@ -69,9 +73,13 @@ public class SchoolService {
         final var group = groupRepository.findById(groupId).orElse(null);
         final var course = courseRepository.findById(courseId).orElse(null);
         final var students = studentRepository.findByGroup(group).stream()
-                .filter(student -> student.getCourses().contains(course)).collect(Collectors.toList());
+                .filter(student -> student.getCourses().contains(course))
+                .map(utilService::convertToStudentDTO)
+                .toList();
         final var teachers = teacherRepository.findAll().stream()
-                .filter(teacher -> teacher.getCourses().contains(course)).collect(Collectors.toList());
+                .filter(teacher -> teacher.getCourses().contains(course))
+                .map(utilService::convertToTeacherDTO)
+                .toList();;
         return Arrays.asList(students, teachers);
     }
 }
