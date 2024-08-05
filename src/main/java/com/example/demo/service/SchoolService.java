@@ -4,6 +4,7 @@ import com.example.demo.entity.Course;
 import com.example.demo.entity.StudentGroup;
 import com.example.demo.entity.Student;
 import com.example.demo.entity.Teacher;
+import com.example.demo.model.GroupCourseResponseDto;
 import com.example.demo.model.GroupDto;
 import com.example.demo.model.StudentDto;
 import com.example.demo.model.TeacherDto;
@@ -69,7 +70,7 @@ public class SchoolService {
         return groupRepository.save(newGroup);
     }
 
-    public List<Object> getTeachersAndStudentsByGroupAndCourse(Long groupId, Long courseId) {
+    public GroupCourseResponseDto getTeachersAndStudentsByGroupAndCourse(Long groupId, Long courseId) {
         final var group = groupRepository.findById(groupId).orElse(null);
         final var course = courseRepository.findById(courseId).orElse(null);
         final var students = studentRepository.findByGroup(group).stream()
@@ -80,6 +81,6 @@ public class SchoolService {
                 .filter(teacher -> teacher.getCourses().contains(course))
                 .map(utilService::convertToTeacherDTO)
                 .toList();;
-        return Arrays.asList(students, teachers);
+        return new GroupCourseResponseDto(students, teachers);
     }
 }

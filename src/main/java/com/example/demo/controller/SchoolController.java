@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Course;
 import com.example.demo.entity.StudentGroup;
 import com.example.demo.entity.Teacher;
+import com.example.demo.model.GroupCourseResponseDto;
 import com.example.demo.model.GroupDto;
 import com.example.demo.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class SchoolController {
     }
 
     @GetMapping("/group/course")
-    public List<Object> getTeachersAndStudentsByGroupAndCourse(@RequestParam Long groupId, @RequestParam Long courseId) {
+    public GroupCourseResponseDto getTeachersAndStudentsByGroupAndCourse(@RequestParam Long groupId, @RequestParam Long courseId) {
         return schoolService.getTeachersAndStudentsByGroupAndCourse(groupId, courseId);
     }
 }
